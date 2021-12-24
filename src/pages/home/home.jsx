@@ -1,7 +1,8 @@
-import './home.css';
+import '../../styles/index.css';
+//text-align: center;
 
 function Home() {
-	return <div className='App'></div>;
+	return <div>Home</div>;
 }
 
 export default Home;
