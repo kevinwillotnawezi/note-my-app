@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './styles/index.css';
-import Navigation from './components/navigation';
+import Navigation from './components/navigation/navigation';
 import Home from './pages/home/home';
 import reportWebVitals from './reportWebVitals';
 
