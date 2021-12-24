@@ -41,11 +41,11 @@ function Navigation() {
 				<Logo src={logo} alt='logo' />
 			</Link>
 			<div>
-				<StyledLink to='/'>New Rating</StyledLink>
-				<StyledLink to='/'>Lits of Rating</StyledLink>
-				<StyledLink to='/'>Dashboard</StyledLink>
+				<StyledLink to='/rating'>New Rating</StyledLink>
+				<StyledLink to='/ratingList'>Lits of Rating</StyledLink>
+				<StyledLink to='/dashboard'>Dashboard</StyledLink>
 			</div>
-			<Link to='/'>
+			<Link to='/login'>
 				<User src={user} alt='logo' />
 			</Link>
 		</NavContainer>

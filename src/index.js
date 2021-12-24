@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './styles/index.css';
 import Navigation from './components/navigation/navigation';
 import Home from './pages/home/home';
+import Dashboard from './pages/dashboard/dashboard';
+import Login from './pages/login/login';
+import Signup from './pages/signup/signup';
+import Rating from './pages/newRating/newRating';
+import RatingList from './pages/ratingList/ratingList';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -12,6 +17,21 @@ ReactDOM.render(
 			<Navigation />
 			<Routes>
 				<Route exact path='/' element={<Home />} />
+			</Routes>
+			<Routes>
+				<Route path='/dashboard' element={<Dashboard />} />
+			</Routes>
+			<Routes>
+				<Route path='/login' element={<Login />} />
+			</Routes>
+			<Routes>
+				<Route path='/signup' element={<Signup />} />
+			</Routes>
+			<Routes>
+				<Route path='/rating' element={<Rating />} />
+			</Routes>
+			<Routes>
+				<Route path='/ratingList' element={<RatingList />} />
 			</Routes>
 		</Router>
 	</React.StrictMode>,
