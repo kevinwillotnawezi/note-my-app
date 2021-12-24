@@ -1,7 +1,6 @@
 const colors = {
-	//TODO adapt colors here
-	primary: '#5843E4',
-	secondary: '#8186A0',
+	primary: '#04aa6d',
+	secondary: '#D3D3D3',
 	dark: '#282c34',
 };
 

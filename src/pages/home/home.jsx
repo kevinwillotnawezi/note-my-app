@@ -23,6 +23,7 @@ const MyButton = styled(Link)`
 	&:hover {
 		cursor: pointer;
 		background-color: ${colors.secondary};
+		color: ${colors.dark};
 	}
 `;
 

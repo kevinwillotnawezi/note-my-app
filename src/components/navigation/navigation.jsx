@@ -51,8 +51,8 @@ function Navigation() {
 				<Logo src={logo} alt='logo' />
 			</Link>
 			<div>
-				<StyledLink to='/rating'>New Rating</StyledLink>
-				<StyledLink to='/ratingList'>Lits of Rating</StyledLink>
+				<StyledLink to='/rating'>New rating</StyledLink>
+				<StyledLink to='/ratingList'>List of rating</StyledLink>
 				<StyledLink to='/dashboard'>Dashboard</StyledLink>
 			</div>
 			<Link to='/login'>
