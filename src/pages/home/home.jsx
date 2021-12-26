@@ -1,5 +1,5 @@
-import '../../styles/index.css';
-import colors from '../../styles/colors';
+import '../../assets/styles/index.css';
+import colors from '../../assets/styles/colors';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -33,9 +33,9 @@ function Home() {
 			<h1>Welcome to my site</h1>
 			<h3>Are you ready to rate the app?</h3>
 			<DivButton>
-				<MyButton to='/rating'>Add new rating</MyButton>
-				<MyButton to='/ratingList'>List of ratings</MyButton>
-				<MyButton to='/dashboard'>Dashboard</MyButton>
+				<MyButton to='/feedback'>Give us your feedback</MyButton>
+				<MyButton to='/feedbackList'>See the list of feedbacks</MyButton>
+				<MyButton to='/dashboard'>Show the Dashboard</MyButton>
 			</DivButton>
 		</div>
 	);

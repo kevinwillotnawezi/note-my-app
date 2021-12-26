@@ -1,4 +1,4 @@
-import '../../styles/index.css';
+import '../../assets/styles/index.css';
 
 function Dashboard() {
 	return <div>Dashboard</div>;

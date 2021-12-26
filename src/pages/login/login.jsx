@@ -1,4 +1,4 @@
-import '../../styles/index.css';
+import '../../assets/styles/index.css';
 
 function Login() {
 	return <div>Login</div>;

@@ -1,4 +1,4 @@
-import '../../styles/index.css';
+import '../../assets/styles/index.css';
 
 function Signup() {
 	return <div>Signup</div>;

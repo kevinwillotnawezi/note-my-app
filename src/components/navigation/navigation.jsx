@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.svg';
-import user from '../../assets/user.png';
+import logo from '../../assets/images/logo.svg';
+import user from '../../assets/images/user.png';
 import './navigation.css';
-import colors from '../../styles/colors';
+import colors from '../../assets/styles/colors';
 
 const NavContainer = styled.nav`
 	padding: 30px;
@@ -51,8 +51,8 @@ function Navigation() {
 				<Logo src={logo} alt='logo' />
 			</Link>
 			<div>
-				<StyledLink to='/rating'>New rating</StyledLink>
-				<StyledLink to='/ratingList'>List of rating</StyledLink>
+				<StyledLink to='/feedback'>New feedback</StyledLink>
+				<StyledLink to='/feedbackList'>List of feedbacks</StyledLink>
 				<StyledLink to='/dashboard'>Dashboard</StyledLink>
 			</div>
 			<Link to='/login'>

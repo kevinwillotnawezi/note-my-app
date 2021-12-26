@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './styles/index.css';
+import './assets/styles/index.css';
 import Navigation from './components/navigation/navigation';
 import Home from './pages/home/home';
 import Dashboard from './pages/dashboard/dashboard';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
-import Rating from './pages/newRating/newRating';
-import RatingList from './pages/ratingList/ratingList';
+import Feedback from './pages/newFeedback/newFeedback';
+import FeedbackList from './pages/feedbackList/feedbackList';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -28,10 +28,10 @@ ReactDOM.render(
 				<Route path='/signup' element={<Signup />} />
 			</Routes>
 			<Routes>
-				<Route path='/rating' element={<Rating />} />
+				<Route path='/feedback' element={<Feedback />} />
 			</Routes>
 			<Routes>
-				<Route path='/ratingList' element={<RatingList />} />
+				<Route path='/feedbackList' element={<FeedbackList />} />
 			</Routes>
 		</Router>
 	</React.StrictMode>,
