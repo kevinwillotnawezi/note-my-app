@@ -9,6 +9,7 @@ import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
 import Feedback from './pages/newFeedback/newFeedback';
 import FeedbackList from './pages/feedbackList/feedbackList';
+import FeedbackWithComments from './pages/feedbackWithComments/feedbackWithComments';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -29,6 +30,9 @@ ReactDOM.render(
 			</Routes>
 			<Routes>
 				<Route path='/feedback' element={<Feedback />} />
+			</Routes>
+			<Routes>
+				<Route path='/feedbackWithComments/:id' element={<FeedbackWithComments />} />
 			</Routes>
 			<Routes>
 				<Route path='/feedbackList' element={<FeedbackList />} />
