@@ -18,6 +18,7 @@ const NavContainer = styled.nav`
 //TODO
 //hover & active
 // border-radius: 30px;
+//Global Style
 export const StyledLink = styled(Link)`
 	padding: 0px 30px;
 	text-decoration: none;
