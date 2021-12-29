@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+//TODO
 export function useFetchPost(url) {
 	const [body, setBody] = useState({});
 	const [data, setData] = useState({});
