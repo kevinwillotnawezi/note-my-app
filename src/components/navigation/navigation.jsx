@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
 import user from '../../assets/images/user.png';
 import './navigation.css';
@@ -16,10 +16,8 @@ const NavContainer = styled.nav`
 `;
 
 //TODO
-//hover & active
-// border-radius: 30px;
 //Global Style
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(NavLink)`
 	padding: 0px 30px;
 	text-decoration: none;
 	font-size: 18px;
@@ -48,17 +46,19 @@ export const User = styled.img`
 function Navigation() {
 	return (
 		<NavContainer>
-			<Link to='/'>
+			<NavLink to='/'>
 				<Logo src={logo} alt='logo' />
-			</Link>
+			</NavLink>
 			<div>
-				<StyledLink to='/feedback'>New feedback</StyledLink>
+				<StyledLink exact to='/feedback' activeClassName='selected'>
+					New feedback
+				</StyledLink>
 				<StyledLink to='/feedbackList'>List of feedbacks</StyledLink>
 				<StyledLink to='/dashboard'>Dashboard</StyledLink>
 			</div>
-			<Link to='/login'>
+			<NavLink to='/login'>
 				<User src={user} alt='logo' />
-			</Link>
+			</NavLink>
 		</NavContainer>
 	);
 }

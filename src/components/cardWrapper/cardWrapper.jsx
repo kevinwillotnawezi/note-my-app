@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from '../../assets/styles/colors';
 
 export const CardWrapper = styled.div`
 	max-width: 1000px;
@@ -8,7 +9,7 @@ export const CardWrapper = styled.div`
 	padding-right: 10px;
 
 	.table-header {
-		background-color: #95a5a6;
+		background-color: ${colors.grey_blue};
 		font-size: 14px;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
