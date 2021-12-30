@@ -15,8 +15,6 @@ const NavContainer = styled.nav`
 	color: white;
 `;
 
-//TODO
-//Global Style
 export const StyledLink = styled(NavLink)`
 	padding: 0px 30px;
 	text-decoration: none;
