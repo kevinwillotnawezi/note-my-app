@@ -1,15 +1,6 @@
-import colors from '../../assets/styles/colors';
-import styled, { keyframes } from 'styled-components';
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
+import colors from '../../../assets/styles/colors';
+import styled from 'styled-components';
+import rotate from '../rotate/rotate';
 
 export const Loader = styled.div`
 	padding: 10px;

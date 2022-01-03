@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
 import user from '../../assets/images/user.png';
-import './navigation.css';
 import colors from '../../assets/styles/colors';
+import rotate from './../styledComponents/rotate/rotate';
 
 const NavContainer = styled.nav`
 	padding: 30px;
@@ -30,7 +30,7 @@ export const StyledLink = styled(NavLink)`
 
 export const Logo = styled.img`
 	height: 50px;
-	animation: App-logo-spin infinite 20s linear;
+	animation: ${rotate} infinite 20s linear;
 	&:hover {
 		cursor: pointer;
 		animation: none;
@@ -48,9 +48,7 @@ function Navigation() {
 				<Logo src={logo} alt='logo' />
 			</NavLink>
 			<div>
-				<StyledLink exact to='/feedback' activeClassName='selected'>
-					New feedback
-				</StyledLink>
+				<StyledLink to='/feedback'>New feedback</StyledLink>
 				<StyledLink to='/feedbackList'>List of feedbacks</StyledLink>
 				<StyledLink to='/dashboard'>Dashboard</StyledLink>
 			</div>

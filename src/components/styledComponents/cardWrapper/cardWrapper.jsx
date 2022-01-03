@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import colors from '../../assets/styles/colors';
+import colors from '../../../assets/styles/colors';
 
 export const CardWrapper = styled.div`
 	max-width: 1000px;
@@ -13,10 +13,13 @@ export const CardWrapper = styled.div`
 		font-size: 14px;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
+		align-items: center;
 	}
+
 	.table-row {
 		background-color: #ffffff;
 		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+		display: flex;
 		align-items: center;
 	}
 
@@ -28,11 +31,14 @@ export const CardWrapper = styled.div`
 		margin-bottom: 25px;
 	}
 
-	.col-1 {
+	.col-0 {
 		flex-basis: 10%;
 	}
-	.col-2 {
+	.col-1 {
 		flex-basis: 40%;
+	}
+	.col-2 {
+		flex-basis: 25%;
 	}
 	.col-3 {
 		flex-basis: 25%;
@@ -41,9 +47,6 @@ export const CardWrapper = styled.div`
 		flex-basis: 25%;
 	}
 	.col-5 {
-		flex-basis: 25%;
-	}
-	.col-6 {
 		flex-basis: 25%;
 	}
 `;

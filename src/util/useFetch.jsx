@@ -1,43 +1,7 @@
 import { useState, useEffect } from 'react';
 
-//TODO
-export function useFetchPost(url) {
-	const [body, setBody] = useState({});
-	const [data, setData] = useState({});
-	const [isLoading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
-
-	useEffect(() => {
-		const bodyJson = JSON.stringify(body);
-		if (!url || bodyJson === '{}') return;
-		console.log(bodyJson);
-		setLoading(true);
-		async function fetchData() {
-			try {
-				const response = await fetch(url, {
-					method: 'POST',
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
-					},
-					bodyJson,
-				});
-				const data = await response.json();
-				setData(data);
-			} catch (err) {
-				console.log(err);
-				setError(true);
-			} finally {
-				setLoading(false);
-			}
-		}
-		fetchData();
-	}, [url, body]);
-	return { isLoading, data, error, setBody };
-}
-
 export function useFetch(url) {
-	const [data, setData] = useState({});
+	const [data, setData] = useState([]);
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
@@ -50,7 +14,7 @@ export function useFetch(url) {
 				const data = await response.json();
 				setData(data);
 			} catch (err) {
-				console.log(err);
+				console.err(err);
 				setError(true);
 			} finally {
 				setLoading(false);
@@ -58,5 +22,38 @@ export function useFetch(url) {
 		}
 		fetchData();
 	}, [url]);
-	return { isLoading, data, error };
+	return { isLoading, data, error, setData };
+}
+
+export function usePost(url) {
+	const [data, setData] = useState([]);
+	const [isLoading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
+	const [body, setBody] = useState();
+
+	useEffect(() => {
+		if (!url) return;
+		if (!body) return;
+		setLoading(true);
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+		};
+		async function fetchData() {
+			try {
+				const response = await fetch(url, requestOptions);
+				const data = await response.json();
+				setData(data);
+			} catch (err) {
+				console.log(err);
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		}
+		fetchData();
+	}, [body, url]);
+
+	return { isLoading, data, error, setBody };
 }
