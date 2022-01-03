@@ -6,9 +6,9 @@ import { usePost } from '../../util/useFetch';
 import { urlApiFeedbacks } from '../../util/constants';
 import { Loader, LoaderWrapper } from '../../components/styledComponents/loader/loader';
 import { useState } from 'react';
+import { userId } from './../../util/constants';
 
 function Feedback() {
-	const userId = 'test';
 	const category = null;
 	const status = 'open';
 	const [submit, setSubmit] = useState(false);
@@ -20,7 +20,6 @@ function Feedback() {
 	const { isLoading, error, setBody } = usePost(urlApiFeedbacks);
 
 	function onSubmit(data) {
-		console.log(submit);
 		const body = {
 			...data,
 			userId,
