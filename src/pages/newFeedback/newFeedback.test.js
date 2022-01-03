@@ -16,7 +16,7 @@ import { urlApiFeedbacks } from '../../util/constants';
 
 //to test error message comment below
 const server = setupServer(
-	rest.get(urlApiFeedbacks, (req, res, ctx) => {
+	rest.post(urlApiFeedbacks, (req, res, ctx) => {
 		return res(
 			ctx.json({
 				message: 'Feedback created successfully',
