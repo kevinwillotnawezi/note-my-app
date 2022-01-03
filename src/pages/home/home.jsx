@@ -33,9 +33,15 @@ function Home() {
 			<h1>Welcome to my site</h1>
 			<h3>Are you ready to rate the app?</h3>
 			<DivButton>
-				<MyButton to='/feedback'>Give us your feedback</MyButton>
-				<MyButton to='/feedbackList'>See the list of feedbacks</MyButton>
-				<MyButton to='/dashboard'>Show the Dashboard</MyButton>
+				<MyButton data-testid='newFeedback' to='/feedback'>
+					Give us your feedback
+				</MyButton>
+				<MyButton data-testid='feedbackList' to='/feedbackList'>
+					See the list of feedbacks
+				</MyButton>
+				<MyButton data-testid='dashboard' to='/dashboard'>
+					Show the Dashboard
+				</MyButton>
 			</DivButton>
 		</div>
 	);
