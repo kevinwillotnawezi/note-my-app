@@ -67,7 +67,7 @@ const Dropdown = styled.div`
 function Navigation() {
 	return (
 		<NavContainer>
-			<NavLink to='/'>
+			<NavLink to='/note-my-app'>
 				<Logo src={logo} alt='logo' />
 			</NavLink>
 			<div>
@@ -77,7 +77,7 @@ function Navigation() {
 			</div>
 			<Dropdown>
 				<User src={user} alt='logo' />
-				<div class='dropdown-content'>
+				<div className='dropdown-content'>
 					<StyledLink to='/login'>Login</StyledLink>
 					<StyledLink to='/signup'>Signup</StyledLink>
 					{/* TODO logout before */}

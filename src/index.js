@@ -18,23 +18,12 @@ ReactDOM.render(
 			<Navigation />
 			<Routes>
 				<Route exact path='/' element={<Home />} />
-			</Routes>
-			<Routes>
+				<Route path='/note-my-app' element={<Home />} />
 				<Route path='/dashboard' element={<Dashboard />} />
-			</Routes>
-			<Routes>
 				<Route path='/login' element={<Login />} />
-			</Routes>
-			<Routes>
 				<Route path='/signup' element={<Signup />} />
-			</Routes>
-			<Routes>
 				<Route path='/feedback' element={<Feedback />} />
-			</Routes>
-			<Routes>
 				<Route path='/feedbackWithComments/:id' element={<FeedbackWithComments />} />
-			</Routes>
-			<Routes>
 				<Route path='/feedbackList' element={<FeedbackList />} />
 			</Routes>
 		</Router>
