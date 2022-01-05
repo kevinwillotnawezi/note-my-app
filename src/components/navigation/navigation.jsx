@@ -15,7 +15,7 @@ const NavContainer = styled.nav`
 	color: white;
 `;
 
-export const StyledLink = styled(NavLink)`
+const StyledLink = styled(NavLink)`
 	padding: 0px 30px;
 	text-decoration: none;
 	font-size: 18px;
@@ -28,7 +28,7 @@ export const StyledLink = styled(NavLink)`
 	}
 `;
 
-export const Logo = styled.img`
+const Logo = styled.img`
 	height: 50px;
 	animation: ${rotate} infinite 20s linear;
 	&:hover {
@@ -37,8 +37,31 @@ export const Logo = styled.img`
 	}
 `;
 
-export const User = styled.img`
+const User = styled.img`
 	height: 50px;
+`;
+
+const Dropdown = styled.div`
+	position: relative;
+	display: inline-block;
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: ${colors.dark};
+		right: -20px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+
+		* {
+			padding: 20px;
+		}
+	}
+
+	&:hover .dropdown-content {
+		display: flex;
+		flex-direction: column;
+	}
 `;
 
 function Navigation() {
@@ -52,9 +75,15 @@ function Navigation() {
 				<StyledLink to='/feedbackList'>List of feedbacks</StyledLink>
 				<StyledLink to='/dashboard'>Dashboard</StyledLink>
 			</div>
-			<NavLink to='/login'>
+			<Dropdown>
 				<User src={user} alt='logo' />
-			</NavLink>
+				<div class='dropdown-content'>
+					<StyledLink to='/login'>Login</StyledLink>
+					<StyledLink to='/signup'>Signup</StyledLink>
+					{/* TODO logout before */}
+					<StyledLink to='/note-my-app'>Logout</StyledLink>
+				</div>
+			</Dropdown>
 		</NavContainer>
 	);
 }
