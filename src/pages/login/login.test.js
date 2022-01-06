@@ -6,7 +6,7 @@ import { setupServer } from 'msw/node';
 import { urlApiLogin } from '../../util/constants';
 import Login from './login';
 
-describe('Signup', () => {
+describe('Login', () => {
 	const server = setupServer(
 		rest.post(urlApiLogin, (req, res, ctx) => {
 			return res(
@@ -61,7 +61,7 @@ describe('Signup', () => {
 	});
 });
 
-describe('Singup invalid password', () => {
+describe('Login invalid password', () => {
 	const server = setupServer(
 		rest.post(urlApiLogin, (req, res, ctx) => {
 			return res(
@@ -90,7 +90,7 @@ describe('Singup invalid password', () => {
 	});
 });
 
-describe('Singup unknonw user', () => {
+describe('Login unknonw user', () => {
 	const server = setupServer(
 		rest.post(urlApiLogin, (req, res, ctx) => {
 			return res(
@@ -122,7 +122,7 @@ describe('Singup unknonw user', () => {
 	});
 });
 
-describe('Singup unknonw error', () => {
+describe('Login unknonw error', () => {
 	const server = setupServer(
 		rest.post(urlApiLogin, (req, res, ctx) => {
 			return res(ctx.status(500));
