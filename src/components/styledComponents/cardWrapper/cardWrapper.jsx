@@ -8,6 +8,10 @@ export const CardWrapper = styled.div`
 	padding-left: 10px;
 	padding-right: 10px;
 
+	ul {
+		padding-inline-start: 0px;
+	}
+
 	.table-header {
 		background-color: ${colors.grey_blue};
 		font-size: 14px;
