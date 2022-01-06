@@ -3,45 +3,24 @@ import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { urlApiFeedbacks } from '../../util/constants';
+import { urlApiSignUp } from '../../util/constants';
 import Signup from './signup';
 
-//to test existing email uncomment below
-//TODO check below
-// const server = setupServer(
-// 	rest.post(urlApiFeedbacks, (req, res, ctx) => {
-// 		return res(
-// 			ctx.status(400),
-// 			ctx.json({
-// 				message: 'User validation failed: email: Error, expected `email` to be unique. Value: `admin@admin`',
-// 			})
-// 		);
-// 	})
-// );
-
-// const server = setupServer(
-// 	rest.post(urlApiFeedbacks, (req, res, ctx) => {
-// 		return res(ctx.status(500));
-// 	})
-// );
-
-//to test error message comment below
-//TODO see test here (and in other files)
-const server = setupServer(
-	rest.post(urlApiFeedbacks, (req, res, ctx) => {
-		return res(
-			ctx.status(201),
-			ctx.json({
-				message: 'User created successfully',
-			})
-		);
-	})
-);
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
 describe('Signup', () => {
+	const server = setupServer(
+		rest.post(urlApiSignUp, (req, res, ctx) => {
+			return res(
+				ctx.status(201),
+				ctx.json({
+					message: 'User created',
+				})
+			);
+		})
+	);
+	beforeAll(() => server.listen());
+	afterEach(() => server.resetHandlers());
+	afterAll(() => server.close());
+
 	it('should only render all the inputs and buttons', () => {
 		render(<Signup />);
 		expect(screen.getByTestId('email')).toBeInTheDocument();
@@ -111,43 +90,6 @@ describe('Signup', () => {
 		expect(screen.getByText('Password must contain at least 8 characters')).toBeInTheDocument();
 	});
 
-	//uncomment this part and the part at the top of the file to test error message
-	// it('should display an error when email is already used', async () => {
-	// 	render(<Signup />);
-
-	// 	const submitButton = screen.getByTestId('submit');
-	// 	const email = screen.getByTestId('email');
-	// 	fireEvent.change(email, { target: { value: 'test@test' } });
-	// 	const password = screen.getByTestId('password');
-	// 	fireEvent.change(password, { target: { value: '12345678' } });
-	// 	const repeat = screen.getByTestId('repeat-password');
-	// 	fireEvent.change(repeat, { target: { value: '12345678' } });
-	// 	fireEvent.click(submitButton);
-
-	// 	await waitFor(() => {
-	// 		expect(screen.getByText('This user already exists')).toBeInTheDocument();
-	// 	});
-	// 	//TODO => forgot password
-	// });
-
-	//uncomment this part and the part at the top of the file to test error message
-	// it('should display an error when error is encountered', async () => {
-	// 	render(<Signup />);
-
-	// 	const submitButton = screen.getByTestId('submit');
-	// 	const email = screen.getByTestId('email');
-	// 	fireEvent.change(email, { target: { value: 'test@test' } });
-	// 	const password = screen.getByTestId('password');
-	// 	fireEvent.change(password, { target: { value: '12345678' } });
-	// 	const repeat = screen.getByTestId('repeat-password');
-	// 	fireEvent.change(repeat, { target: { value: '12345678' } });
-	// 	fireEvent.click(submitButton);
-
-	// 	await waitFor(() => {
-	// 		expect(screen.getByText('An error occured')).toBeInTheDocument();
-	// 	});
-	// });
-
 	// TODO go to home
 	it('should display a message when the user is created', async () => {
 		render(<Signup />);
@@ -163,6 +105,67 @@ describe('Signup', () => {
 
 		await waitFor(() => {
 			expect(screen.getByText('User created')).toBeInTheDocument();
+		});
+	});
+});
+
+describe('Signup unknonw error', () => {
+	const server = setupServer(
+		rest.post(urlApiSignUp, (req, res, ctx) => {
+			return res(ctx.status(500));
+		})
+	);
+	beforeAll(() => server.listen());
+	afterEach(() => server.resetHandlers());
+	afterAll(() => server.close());
+
+	it('should display an error when error is encountered', async () => {
+		render(<Signup />);
+
+		const submitButton = screen.getByTestId('submit');
+		const email = screen.getByTestId('email');
+		fireEvent.change(email, { target: { value: 'test@test' } });
+		const password = screen.getByTestId('password');
+		fireEvent.change(password, { target: { value: '12345678' } });
+		const repeat = screen.getByTestId('repeat-password');
+		fireEvent.change(repeat, { target: { value: '12345678' } });
+		fireEvent.click(submitButton);
+
+		await waitFor(() => {
+			expect(screen.getByText('An error occured')).toBeInTheDocument();
+		});
+	});
+});
+
+describe('Signup existing email', () => {
+	const server = setupServer(
+		rest.post(urlApiSignUp, (req, res, ctx) => {
+			return res(
+				ctx.status(400),
+				ctx.json({
+					message: 'User validation failed: email: Error, expected `email` to be unique. Value: `admin@admin`',
+				})
+			);
+		})
+	);
+	beforeAll(() => server.listen());
+	afterEach(() => server.resetHandlers());
+	afterAll(() => server.close());
+
+	it('should display an error when email is already used', async () => {
+		render(<Signup />);
+
+		const submitButton = screen.getByTestId('submit');
+		const email = screen.getByTestId('email');
+		fireEvent.change(email, { target: { value: 'test@test' } });
+		const password = screen.getByTestId('password');
+		fireEvent.change(password, { target: { value: '12345678' } });
+		const repeat = screen.getByTestId('repeat-password');
+		fireEvent.change(repeat, { target: { value: '12345678' } });
+		fireEvent.click(submitButton);
+
+		await waitFor(() => {
+			expect(screen.getByText('This user already exists')).toBeInTheDocument();
 		});
 	});
 });
