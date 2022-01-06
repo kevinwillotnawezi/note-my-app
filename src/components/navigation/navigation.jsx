@@ -81,6 +81,7 @@ function Navigation() {
 					<StyledLink to='/login'>Login</StyledLink>
 					<StyledLink to='/signup'>Signup</StyledLink>
 					{/* TODO logout before */}
+					{/* TODO SEE THAT ONLY IF LOGGED IN */}
 					<StyledLink to='/note-my-app'>Logout</StyledLink>
 				</div>
 			</Dropdown>

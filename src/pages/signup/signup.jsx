@@ -82,6 +82,7 @@ function Signup() {
 						validate: (value) => value === password.current || 'Passwords are not matching',
 					})}
 				/>
+				{/* TODO add cancell button and improve style */}
 				<input data-testid='submit' type='submit' value='Submit' />
 			</MyForm>
 			{/* TODO create component below */}
