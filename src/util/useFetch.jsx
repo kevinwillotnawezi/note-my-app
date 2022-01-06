@@ -34,6 +34,7 @@ export function usePost(url) {
 		if (!url) return;
 		if (!body) return;
 		setLoading(true);
+		setError(false);
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -43,9 +44,12 @@ export function usePost(url) {
 			try {
 				const response = await fetch(url, requestOptions);
 				const data = await response.json();
+				if (response.status >= 400) {
+					setError(data);
+				}
 				setData(data);
 			} catch (err) {
-				setError(true);
+				setError('An error occurred');
 			} finally {
 				setLoading(false);
 			}

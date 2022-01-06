@@ -1,7 +1,6 @@
 import React from 'react';
-import { screen, render, fireEvent, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import colors from '../../assets/styles/colors';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { urlApiComments } from '../../util/constants';
