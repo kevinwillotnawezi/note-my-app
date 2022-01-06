@@ -28,7 +28,6 @@ function Signup() {
 		const body = {
 			email: data.email,
 			password: data.password,
-			privilege: 'user',
 		};
 		setBody(body);
 		setSubmit(true);
