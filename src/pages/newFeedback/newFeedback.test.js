@@ -77,10 +77,8 @@ describe('Feedback', () => {
 			const error1 = screen.getByTestId('error1');
 			expect(error1).toBeInTheDocument();
 		});
-		await waitFor(() => {
-			const error2 = screen.getByTestId('error2');
-			expect(error2).toBeInTheDocument();
-		});
+		const error2 = screen.getByTestId('error2');
+		expect(error2).toBeInTheDocument();
 	});
 
 	// to test error message uncomment below
