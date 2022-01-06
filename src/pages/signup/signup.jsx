@@ -13,7 +13,7 @@ function Signup() {
 		formState: { errors },
 		watch,
 	} = useForm();
-	// TODO revoir data et error return
+	// TODO see again data et error return
 	const { isLoading, error, setBody } = usePost(urlApiSignUp);
 	const [submit, setSubmit] = useState(false);
 	const password = useRef({});
