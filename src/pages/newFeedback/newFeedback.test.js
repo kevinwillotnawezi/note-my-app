@@ -7,28 +7,20 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { urlApiFeedbacks } from '../../util/constants';
 
-//to test error message uncomment below
-// const server = setupServer(
-// 	rest.post(urlApiFeedbacks, (req, res, ctx) => {
-// 		return res(ctx.status(400));
-// 	})
-// );
-
-//to test error message comment below
-const server = setupServer(
-	rest.post(urlApiFeedbacks, (req, res, ctx) => {
-		return res(
-			ctx.json({
-				message: 'Feedback created successfully',
-			})
-		);
-	})
-);
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
 describe('Feedback', () => {
+	const server = setupServer(
+		rest.post(urlApiFeedbacks, (req, res, ctx) => {
+			return res(
+				ctx.json({
+					message: 'Feedback created successfully',
+				})
+			);
+		})
+	);
+	beforeAll(() => server.listen());
+	afterEach(() => server.resetHandlers());
+	afterAll(() => server.close());
+
 	it('should render the all the inputs', () => {
 		render(<Feedback />);
 		for (let index = 1; index <= 5; index++) {
@@ -81,28 +73,6 @@ describe('Feedback', () => {
 		expect(error2).toBeInTheDocument();
 	});
 
-	// to test error message uncomment below
-
-	// it('should display message when submit has error', async () => {
-	// 	render(<Feedback />);
-	// 	const submit = screen.getByRole('button', { name: 'submit-button' });
-	// 	const button1 = screen.getByText('1');
-	// 	const textArea = screen.getByTestId('text-area');
-
-	// 	//before click on submit
-	// 	expect(screen.queryByTestId('An error occured')).toBeFalsy();
-
-	// 	//after click on submit
-	// 	fireEvent.click(button1);
-	// 	fireEvent.change(textArea, { target: { value: 'abc' } });
-	// 	fireEvent.click(submit);
-
-	// 	await waitFor(() => {
-	// 		const errorMessage = screen.queryByText('An error occured');
-	// 		expect(errorMessage).toBeInTheDocument();
-	// 	});
-	// });
-
 	it('should display message when submit is successful', async () => {
 		render(<Feedback />);
 		const submit = screen.getByRole('button', { name: 'submit-button' });
@@ -119,6 +89,37 @@ describe('Feedback', () => {
 		await waitFor(() => {
 			const successMessage = screen.queryByText('Feedback submitted');
 			expect(successMessage).toBeInTheDocument();
+		});
+	});
+});
+
+describe('Feedback error message', () => {
+	const server = setupServer(
+		rest.post(urlApiFeedbacks, (req, res, ctx) => {
+			return res(ctx.status(400));
+		})
+	);
+	beforeAll(() => server.listen());
+	afterEach(() => server.resetHandlers());
+	afterAll(() => server.close());
+
+	it('should display message when submit has error', async () => {
+		render(<Feedback />);
+		const submit = screen.getByRole('button', { name: 'submit-button' });
+		const button1 = screen.getByText('1');
+		const textArea = screen.getByTestId('text-area');
+
+		//before click on submit
+		expect(screen.queryByTestId('An error occured')).toBeFalsy();
+
+		//after click on submit
+		fireEvent.click(button1);
+		fireEvent.change(textArea, { target: { value: 'abc' } });
+		fireEvent.click(submit);
+
+		await waitFor(() => {
+			const errorMessage = screen.queryByText('An error occured');
+			expect(errorMessage).toBeInTheDocument();
 		});
 	});
 });
