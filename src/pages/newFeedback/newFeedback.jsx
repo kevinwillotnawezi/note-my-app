@@ -48,6 +48,7 @@ function Feedback() {
 					</p>
 				)}
 				<MyTextArea data-testid='text-area' placeholder='Write something..' {...register('note', { required: true, maxLength: 200 })}></MyTextArea>
+				{/* TODO error for max-length */}
 				<input aria-label='submit-button' type='submit' value='Submit' />
 			</MyForm>
 			{submit &&
@@ -56,7 +57,7 @@ function Feedback() {
 						<Loader data-testid='loader' />
 					</LoaderWrapper>
 				) : error ? (
-					<div>An error occured</div>
+					<div className='error'>An error occured</div>
 				) : (
 					<div>Feedback submitted</div>
 				))}

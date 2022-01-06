@@ -90,7 +90,7 @@ class Notation extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <div className='container'>An error occured</div>;
+			return <div className='container error'>An error occured</div>;
 		}
 
 		return (
