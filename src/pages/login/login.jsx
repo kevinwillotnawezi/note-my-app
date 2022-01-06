@@ -13,17 +13,18 @@ function Login() {
 		formState: { errors },
 	} = useForm();
 	// TODO see again data et error return
-	const { isLoading, error, setBody } = usePost(urlApiLogin);
+	const { data, isLoading, error, setBody } = usePost(urlApiLogin);
 	const [submit, setSubmit] = useState(false);
 
-	function onSubmit(data) {
+	async function onSubmit(user) {
 		const body = {
-			email: data.email,
-			password: data.password,
-			privilege: 'user',
+			email: user.email,
+			password: user.password,
 		};
 		setBody(body);
 		setSubmit(true);
+		//TODO handle user
+		localStorage.setItem('user_id', data?._id);
 	}
 
 	return (
