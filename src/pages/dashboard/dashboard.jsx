@@ -109,11 +109,13 @@ function Dashboard() {
 			<div className='sideNav'>
 				<h2>Catégories</h2>
 				<div>
-					<button className='tabLinks'>Amélioration</button>
-					<button className='tabLinks'>Positif</button>
-					<button className='tabLinks'>Négatif</button>
-					<button className='tabLinks'>Pistes</button>
+					{/* TODO create list from backend */}
+					<button className='tabLinks'>Improvements</button>
+					<button className='tabLinks'>Positive</button>
+					<button className='tabLinks'>Negative</button>
+					<button className='tabLinks'>To test</button>
 					<button className='tabLinks'>
+						{/* TODO add to icons */}
 						<svg width='25px' height='25px' viewBox='0 0 24 24'>
 							<path
 								d='M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2z'
