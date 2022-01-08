@@ -21,10 +21,6 @@ export const MyForm = styled.form`
 	}
 
 	@media (max-width: 425px) {
-		margin: 0 5vw;
-	}
-
-	@media (max-width: 320px) {
 		margin: 0;
 	}
 `;
