@@ -57,12 +57,13 @@ const NavContainer = styled.nav`
 		top: 0;
 		left: 0;
 		background-color: ${colors.grey_blue};
-		overflow-x: hidden;
 		transition: 0.5s;
 		padding-top: 60px;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		overflow: hidden;
+		white-space: nowrap;
 
 		a {
 			padding: 20px;
