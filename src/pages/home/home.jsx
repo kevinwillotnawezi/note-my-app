@@ -9,6 +9,10 @@ const DivButton = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: stretch;
+
+	@media (max-width: 425px) {
+		padding: 15px;
+	}
 `;
 
 const MyButton = styled(Link)`
@@ -24,6 +28,13 @@ const MyButton = styled(Link)`
 		cursor: pointer;
 		background-color: ${colors.secondary};
 		color: ${colors.dark};
+	}
+
+	@media (max-width: 768px) {
+		margin: 50px 15%;
+	}
+	@media (max-width: 425px) {
+		margin: 30px 0;
 	}
 `;
 
