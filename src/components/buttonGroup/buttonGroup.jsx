@@ -17,8 +17,15 @@ const GroupButton = styled.div`
 		background-color: ${colors.secondary};
 		border: 1px solid ${colors.dark};
 		color: ${colors.dark};
-		padding: 10px 24px !important;
+		padding: 10px 24px;
 		cursor: pointer;
+
+		@media (max-width: 588px) {
+			padding: 10px 10px;
+		}
+		@media (max-width: 425px) {
+			padding: 6px 6px;
+		}
 	}
 
 	label:not(#label1) {

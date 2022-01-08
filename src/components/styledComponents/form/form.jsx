@@ -19,6 +19,14 @@ export const MyForm = styled.form`
 		cursor: pointer;
 		margin: 20px auto;
 	}
+
+	@media (max-width: 425px) {
+		margin: 0 5vw;
+	}
+
+	@media (max-width: 320px) {
+		margin: 0;
+	}
 `;
 
 export const MyTextArea = styled.textarea`
