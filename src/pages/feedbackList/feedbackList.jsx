@@ -37,7 +37,7 @@ function FeedbackList() {
 			) : (
 				<CardWrapper>
 					<ul data-testid='content' className='responsive-table'>
-						<TableLine isHeader={true} data={['Notation', 'Rating', 'Note', 'User', 'Comments']} />
+						<TableLine isHeader={true} data={['Notation', 'Note', 'Rating', 'User', 'Comments']} />
 						{data?.map((feedback) => (
 							<TableLine
 								data-testid={feedback._id}
@@ -45,8 +45,8 @@ function FeedbackList() {
 								isHeader={false}
 								data={[
 									<Notation feedbackId={feedback._id} />,
-									feedback.rating,
 									feedback.note,
+									feedback.rating,
 									feedback.userId,
 									<StyledLink to={`/feedbackWithComments/${feedback._id}`} state={{ ...feedback }}>
 										See all comments

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../assets/styles/colors';
 
 export const CardWrapper = styled.div`
-	max-width: 1000px;
+	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 10px;
@@ -36,21 +36,27 @@ export const CardWrapper = styled.div`
 	}
 
 	.col-0 {
-		flex-basis: 10%;
+		flex-basis: 20%;
 	}
 	.col-1 {
-		flex-basis: 40%;
+		flex-basis: 50%;
 	}
 	.col-2 {
-		flex-basis: 25%;
+		flex-basis: 20%;
 	}
 	.col-3 {
-		flex-basis: 25%;
+		flex-basis: 20%;
 	}
 	.col-4 {
-		flex-basis: 25%;
+		flex-basis: 20%;
 	}
 	.col-5 {
-		flex-basis: 25%;
+		flex-basis: 20%;
+	}
+	.col-6 {
+		flex-basis: 20%;
+	}
+	.col-7 {
+		flex-basis: 20%;
 	}
 `;

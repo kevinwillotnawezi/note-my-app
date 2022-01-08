@@ -27,8 +27,8 @@ function FeedbackWithComments() {
 			<h2>Feedback</h2>
 			<CardWrapper data-testId='feedback-div'>
 				<ul className='responsive-table'>
-					<TableLine isHeader={true} data={['Notation', 'Rating', 'Note', 'User']} />
-					<TableLine isHeader={false} data={[<Notation feedbackId={feedbackId}></Notation>, feedback.rating, feedback.note, feedback.user]} />
+					<TableLine isHeader={true} data={['Notation', 'Note', 'Rating', 'User']} />
+					<TableLine isHeader={false} data={[<Notation feedbackId={feedbackId}></Notation>, feedback.note, feedback.rating, feedback.user]} />
 				</ul>
 			</CardWrapper>
 
