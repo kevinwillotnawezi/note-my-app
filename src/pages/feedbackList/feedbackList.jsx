@@ -52,6 +52,7 @@ function FeedbackList() {
 										See all comments
 									</StyledLink>,
 								]}
+								label={['Notation', 'Note', 'Rating', 'User', 'Comments']}
 							/>
 						))}
 					</ul>

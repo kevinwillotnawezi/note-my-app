@@ -28,7 +28,11 @@ function FeedbackWithComments() {
 			<CardWrapper data-testId='feedback-div'>
 				<ul className='responsive-table'>
 					<TableLine isHeader={true} data={['Notation', 'Note', 'Rating', 'User']} />
-					<TableLine isHeader={false} data={[<Notation feedbackId={feedbackId}></Notation>, feedback.note, feedback.rating, feedback.user]} />
+					<TableLine
+						isHeader={false}
+						data={[<Notation feedbackId={feedbackId}></Notation>, feedback.note, feedback.rating, feedback.user]}
+						label={['Notation', 'Note', 'Rating', 'User']}
+					/>
 				</ul>
 			</CardWrapper>
 
@@ -48,6 +52,7 @@ function FeedbackWithComments() {
 								key={comment._id}
 								isHeader={false}
 								data={[<Notation commentId={comment._id}></Notation>, comment.description, comment.userId]}
+								label={['Notation', 'Description', 'User']}
 							/>
 						))}
 					</ul>
