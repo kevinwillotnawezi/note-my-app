@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import colors from './../../assets/styles/colors';
 import { useState } from 'react';
+import { MyForm } from '../../components/styledComponents/form/form';
+import { useForm } from 'react-hook-form';
 
 //TODO component
 const StyledLink = styled(Link)`
@@ -79,12 +81,46 @@ const DashboardContainer = styled.div`
 			background-color: #ddd;
 		}
 	}
+	svg {
+		fill: ${colors.dark};
+
+		&:hover {
+			fill: ${colors.grey_blue};
+		}
+	}
+`;
+
+const Button = styled.button`
+	background-color: ${colors.green};
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 20px auto;
+`;
+
+//TODO new general component?
+const Panel = styled.div`
+	padding: 0px !important;
+	display: none;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+
+	form {
+		padding: 0px;
+	}
 `;
 
 function Dashboard() {
 	const { data, isLoading, error, setData } = useFetch(urlApiFeedbacks);
 	const [first, setFirst] = useState(true);
 	const [allData, setAllData] = useState([]);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
 	if (error) {
 		return <div className='container error'>An error occured</div>;
@@ -104,6 +140,42 @@ function Dashboard() {
 		setData(allData.filter((feedback) => feedback.status === value));
 	}
 
+	function handleAccordion() {
+		const accordion = document.getElementById('Accordion');
+		accordion?.classList.toggle('active');
+		const panel = document.getElementById('Panel');
+		if (panel?.style.display === 'block') {
+			panel.style.display = 'none';
+		} else {
+			panel.style.display = 'block';
+		}
+	}
+
+	async function onSubmit(data) {
+		console.log(data);
+		// const body = {
+		// 	...comment,
+		// 	userId,
+		// 	feedbackId,
+		// };
+		// setSubmit(true);
+		// setLoading(true);
+		// await post('', body);
+		// handleAccordion();
+		// if (response.ok) {
+		// 	const newData = [
+		// 		...data,
+		// 		{
+		// 			...comment,
+		// 			userId,
+		// 			feedbackId,
+		// 		},
+		// 	];
+		// 	setData(newData);
+		// }
+		// setLoading(false);
+	}
+
 	return (
 		<DashboardContainer>
 			<div className='sideNav'>
@@ -114,19 +186,29 @@ function Dashboard() {
 					<button className='tabLinks'>Positive</button>
 					<button className='tabLinks'>Negative</button>
 					<button className='tabLinks'>To test</button>
-					<button className='tabLinks'>
+					<button id='Accordion' className='tabLinks' onClick={handleAccordion}>
 						{/* TODO add to icons */}
-						<svg width='25px' height='25px' viewBox='0 0 24 24'>
-							<path
-								d='M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2z'
-								fill='currentColor'
-							></path>
+						<svg width='25px' height='25px' viewBox='0 0 24 24' className='test'>
+							<path d='M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2z'></path>
 						</svg>
+						<Panel id='Panel' data-testid='panel'>
+							<form onSubmit={handleSubmit(onSubmit)}>
+								{/* {errors.description && (
+								<p className='error' data-testid='error'>
+									This field is required
+								</p>
+							)} */}
+								<input data-testid='input' placeholder='Write something..' {...register('description', { required: true })} />
+								<input data-testid='submitButton' type='submit' value='Submit' />
+							</form>
+						</Panel>
 					</button>
 				</div>
 			</div>
 			<div className='container'>
 				<h1>Dashboard</h1>
+
+				<h2>This will completely change</h2>
 
 				<div className='tab'>
 					<button className='tablinks' id='all' onClick={() => filterTab('all')}>
@@ -146,14 +228,14 @@ function Dashboard() {
 					</button>
 				</div>
 
-				{isLoading ? (
+				{/* {isLoading ? (
 					<LoaderWrapper>
 						<Loader data-testid='loader' />
 					</LoaderWrapper>
 				) : (
 					<CardWrapper>
 						<ul data-testid='content' className='responsive-table'>
-							<TableLine isHeader={true} data={['Notation', 'Rating', 'Note', 'User', 'Comments', 'Status', 'Category', 'Update']} />
+							<TableLine isHeader={true} data={['Notation', 'Note', 'Rating', 'User', 'Comments', 'Status', 'Category', 'Update']} />
 							{data?.map((feedback) => (
 								<TableLine
 									data-testid={feedback._id}
@@ -161,8 +243,8 @@ function Dashboard() {
 									isHeader={false}
 									data={[
 										<Notation feedbackId={feedback._id} />,
-										feedback.rating,
 										feedback.note,
+										feedback.rating,
 										feedback.userId,
 										<StyledLink to={`/feedbackWithComments/${feedback._id}`} state={{ ...feedback }}>
 											See all comments
@@ -171,13 +253,13 @@ function Dashboard() {
 										feedback.status,
 										//TODO select box
 										feedback.category ? feedback.category : 'null',
-										<button>Update</button>,
+										<Button>Update</Button>,
 									]}
 								/>
 							))}
 						</ul>
 					</CardWrapper>
-				)}
+				)} */}
 			</div>
 		</DashboardContainer>
 	);
