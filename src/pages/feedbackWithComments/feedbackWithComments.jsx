@@ -17,7 +17,7 @@ function FeedbackWithComments() {
 	const [errorPost, setErrorPost] = useState();
 
 	if (error || errorPost) {
-		return <div className='container error'>An error occured</div>;
+		return <div className='container error'>An error occurred</div>;
 	}
 
 	return (

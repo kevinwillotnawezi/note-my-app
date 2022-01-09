@@ -23,7 +23,7 @@ function FeedbackList() {
 	const { data, isLoading, error } = useFetch(urlApiFeedbacks);
 
 	if (error) {
-		return <div className='container error'>An error occured</div>;
+		return <div className='container error'>An error occurred</div>;
 	}
 
 	return (

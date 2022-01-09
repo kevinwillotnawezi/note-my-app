@@ -90,7 +90,7 @@ class Notation extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <div className='container error'>An error occured</div>;
+			return <div className='container error'>An error occurred</div>;
 		}
 
 		return (
@@ -104,7 +104,7 @@ class Notation extends Component {
 						<Arrow data-testid='arrowUp' up onClick={() => this.handleAddNotation(true)} />
 						<span data-testid='total'>{this.state.totalNotations}</span>
 						<Arrow data-testid='arrowDown' down onClick={() => this.handleAddNotation(false)} />
-						{this.state.errorPost && <span className='error'>An error occured</span>}
+						{this.state.errorPost && <span className='error'>An error occurred</span>}
 						{(this.state.nbClick > 1 || this.state.alreadyGivenNotation) && (
 							<span className='error' data-testid='error'>
 								You already gave a notation for this feedback/comment

@@ -133,7 +133,7 @@ describe('Feedback error message', () => {
 		const textArea = screen.getByTestId('text-area');
 
 		//before click on submit
-		expect(screen.queryByTestId('An error occured')).toBeFalsy();
+		expect(screen.queryByTestId('An error occurred')).toBeFalsy();
 
 		//after click on submit
 		fireEvent.click(button1);
@@ -141,7 +141,7 @@ describe('Feedback error message', () => {
 		fireEvent.click(submit);
 
 		await waitFor(() => {
-			const errorMessage = screen.queryByText('An error occured');
+			const errorMessage = screen.queryByText('An error occurred');
 			expect(errorMessage).toBeInTheDocument();
 		});
 	});

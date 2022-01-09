@@ -102,7 +102,7 @@ function Comment({ feedbackId, data, setData }) {
 						<Loader data-testid='loader' />
 					</LoaderWrapper>
 				) : error ? (
-					<div className='error'>An error occured</div>
+					<div className='error'>An error occurred</div>
 				) : (
 					<div>Comment submitted</div>
 				))}

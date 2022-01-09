@@ -132,7 +132,7 @@ describe('Signup unknonw error', () => {
 		fireEvent.click(submitButton);
 
 		await waitFor(() => {
-			expect(screen.getByText('An error occured')).toBeInTheDocument();
+			expect(screen.getByText('An error occurred')).toBeInTheDocument();
 		});
 	});
 });

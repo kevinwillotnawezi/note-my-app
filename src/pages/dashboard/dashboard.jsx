@@ -123,7 +123,7 @@ function Dashboard() {
 	} = useForm();
 
 	if (error) {
-		return <div className='container error'>An error occured</div>;
+		return <div className='container error'>An error occurred</div>;
 	}
 
 	function filterTab(value) {

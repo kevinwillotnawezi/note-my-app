@@ -87,14 +87,14 @@ describe('Comments errors', () => {
 		const textArea = screen.getByTestId('text-area');
 
 		//before click on submit
-		expect(screen.queryByTestId('An error occured')).toBeFalsy();
+		expect(screen.queryByTestId('An error occurred')).toBeFalsy();
 
 		//after click on submit
 		fireEvent.change(textArea, { target: { value: 'abc' } });
 		fireEvent.click(submit);
 
 		await waitFor(() => {
-			const errorMessage = screen.queryByText('An error occured');
+			const errorMessage = screen.queryByText('An error occurred');
 			expect(errorMessage).toBeInTheDocument();
 		});
 	});

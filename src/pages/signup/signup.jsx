@@ -20,7 +20,7 @@ function Signup() {
 	const errorMessage = error?.message?.includes('expected `email` to be unique') ? (
 		<div className='error'>This user already exists</div>
 	) : (
-		<div className='error'>An error occured</div>
+		<div className='error'>An error occurred</div>
 	);
 	password.current = watch('password', '');
 
