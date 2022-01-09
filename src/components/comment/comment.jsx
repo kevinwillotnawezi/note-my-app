@@ -76,6 +76,7 @@ function Comment({ feedbackId, data, setData }) {
 			setData(newData);
 		}
 		setLoading(false);
+		//TODO check error in test
 	}
 
 	return (
