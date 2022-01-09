@@ -73,6 +73,29 @@ describe('Feedback', () => {
 		expect(error2).toBeInTheDocument();
 	});
 
+	it('should display error when feedback is too long', async () => {
+		render(<Feedback />);
+		const submit = screen.getByRole('button', { name: 'submit-button' });
+		const textArea = screen.getByTestId('text-area');
+
+		//before click on submit
+		expect(screen.queryByTestId('error1')).toBeFalsy();
+		expect(screen.queryByTestId('error2')).toBeFalsy();
+
+		//after click on submit
+		fireEvent.change(textArea, {
+			target: {
+				value:
+					'Monotonectally actualize frictionless networks after plug-and-play "outside the box" thinking. Objectively extend competitive initiatives for pandemic solutions. Enthusiastically supply adaptive total linkage.',
+			},
+		});
+		fireEvent.click(submit);
+		await waitFor(() => {
+			const error2 = screen.getByTestId('error2');
+			expect(error2).toBeInTheDocument();
+		});
+	});
+
 	it('should display message when submit is successful', async () => {
 		render(<Feedback />);
 		const submit = screen.getByRole('button', { name: 'submit-button' });

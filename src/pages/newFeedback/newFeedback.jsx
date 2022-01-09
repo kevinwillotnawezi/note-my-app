@@ -44,11 +44,17 @@ function Feedback() {
 				<label>Note :</label>
 				{errors.note && (
 					<p className='error' data-testid='error2'>
-						This field is required
+						{errors.note.message}
 					</p>
 				)}
-				<MyTextArea data-testid='text-area' placeholder='Write something..' {...register('note', { required: true, maxLength: 200 })}></MyTextArea>
-				{/* TODO error for max-length */}
+				<MyTextArea
+					data-testid='text-area'
+					placeholder='Write something..'
+					{...register('note', {
+						required: { value: true, message: 'This field is required' },
+						maxLength: { value: 200, message: 'The feedback cannot be greater than 200 characters' },
+					})}
+				></MyTextArea>
 				{/* TODO cancell */}
 				<input aria-label='submit-button' type='submit' value='Submit' />
 			</MyForm>
