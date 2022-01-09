@@ -27,4 +27,8 @@ export const MyForm = styled.form`
 
 export const MyTextArea = styled.textarea`
 	height: 200px;
+
+	@media (max-width: 425px) {
+		height: 150px;
+	}
 `;

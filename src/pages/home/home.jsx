@@ -27,7 +27,7 @@ const MyButton = styled(Link)`
 	&:hover {
 		cursor: pointer;
 		background-color: ${colors.secondary};
-		color: ${colors.dark};
+		color: ${colors.grey};
 	}
 
 	@media (max-width: 768px) {
