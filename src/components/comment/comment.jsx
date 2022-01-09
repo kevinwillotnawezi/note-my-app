@@ -28,7 +28,6 @@ const Accordion = styled.button`
 
 const Panel = styled.div`
 	padding: 0 18px;
-	background-color: white;
 	display: none;
 	overflow: hidden;
 	transition: max-height 0.2s ease-out;
