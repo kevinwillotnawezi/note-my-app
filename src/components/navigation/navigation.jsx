@@ -15,6 +15,7 @@ const NavContainer = styled.nav`
 	color: white;
 
 	@media screen and (max-width: 768px) {
+		padding: 15px;
 		.links {
 			display: none;
 		}
