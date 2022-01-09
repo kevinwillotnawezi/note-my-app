@@ -13,7 +13,8 @@ function Login() {
 		formState: { errors },
 	} = useForm();
 	// TODO see again data et error return
-	const { data, isLoading, error, setBody } = usePost(urlApiLogin);
+	const [error, setError] = useState(false);
+	const [isLoading, setLoading] = useState(false);
 	const [submit, setSubmit] = useState(false);
 
 	async function onSubmit(user) {
@@ -21,10 +22,27 @@ function Login() {
 			email: user.email,
 			password: user.password,
 		};
-		setBody(body);
 		setSubmit(true);
-		//TODO handle user
-		localStorage.setItem('user_id', data?._id);
+		setError(false);
+		setLoading(true);
+
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+		};
+		try {
+			const response = await fetch(urlApiLogin, requestOptions);
+			const data = await response.json();
+			if (data.message) {
+				throw new Error(data.message);
+			}
+			localStorage.setItem('user_id', data?._id);
+		} catch (err) {
+			setError({ message: err.message });
+		} finally {
+			setLoading(false);
+		}
 	}
 
 	return (
@@ -60,7 +78,6 @@ function Login() {
 						// minLength: { value: 8, message: 'Password must contain at least 8 characters' }, //TODO remove?
 					})}
 				/>
-				{/* TODO add cancell button and improve style */}
 				<input data-testid='submit' type='submit' value='Submit' />
 			</MyForm>
 			{/* TODO create component below */}
@@ -72,7 +89,7 @@ function Login() {
 						</LoaderWrapper>
 					) : error ? (
 						// errorMessage
-						<div className='error'>{error.message || 'An error occured'}</div>
+						<div className='error'>{error.message || 'An error occurred'}</div>
 					) : (
 						// error?.message
 						<div>Login successful</div>

@@ -125,7 +125,12 @@ describe('Login unknonw user', () => {
 describe('Login unknonw error', () => {
 	const server = setupServer(
 		rest.post(urlApiLogin, (req, res, ctx) => {
-			return res(ctx.status(500));
+			return res(
+				ctx.status(500),
+				ctx.json({
+					message: 'An error occurred',
+				})
+			);
 		})
 	);
 	beforeAll(() => server.listen());
@@ -143,7 +148,7 @@ describe('Login unknonw error', () => {
 		fireEvent.click(submitButton);
 
 		await waitFor(() => {
-			expect(screen.getByText('An error occured')).toBeInTheDocument();
+			expect(screen.getByText('An error occurred')).toBeInTheDocument();
 		});
 	});
 });
