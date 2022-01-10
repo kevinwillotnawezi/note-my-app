@@ -10,7 +10,7 @@ import { userId } from './../../util/constants';
 
 function Feedback() {
 	const category = null;
-	const status = 'open';
+	const status = 'backlog';
 	const [submit, setSubmit] = useState(false);
 	const {
 		register,
