@@ -37,6 +37,7 @@ function FeedbackWithComments() {
 			</CardWrapper>
 
 			<h2>Comments</h2>
+			{/* TODO check alternative setData */}
 			<Comment feedbackId={feedbackId} data={data} setData={setData} setErrorPost={setErrorPost}></Comment>
 
 			{isLoading ? (

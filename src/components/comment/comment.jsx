@@ -2,6 +2,7 @@ import colors from '../../assets/styles/colors';
 import { MyForm, MyTextArea } from '../styledComponents/form/form';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+//TODO remove use-http and adapt dev-dependencies
 import useFetch from 'use-http';
 import { urlApiComments } from '../../util/constants';
 import { userId } from './../../util/constants';
