@@ -1,17 +1,22 @@
-import '../../assets/styles/index.css';
-import { LoaderWrapper } from '../../components/styledComponents/loader/loader';
-import { Loader } from './../../components/styledComponents/loader/loader';
-import { CardWrapper } from './../../components/styledComponents/cardWrapper/cardWrapper';
-import TableLine from '../../components/tableLine/tableLine';
-import Notation from './../../components/notation/notation';
-import { urlApiFeedbacks } from './../../util/constants';
-import { useFetch } from '../../util/useFetch';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import '../../assets/styles/index.css';
 import colors from './../../assets/styles/colors';
-import { useState } from 'react';
-import { MyForm } from '../../components/styledComponents/form/form';
+import { useFetch, useFetch2 } from './../../util/useFetch';
+import { urlApiFeedbacks, urlApiFeedbacksStatus } from './../../util/constants';
 import { useForm } from 'react-hook-form';
+import { LoaderWrapper } from '../../components/styledComponents/loader/loader';
+import { Loader } from '../../components/styledComponents/loader/loader';
+import { Link } from 'react-router-dom';
+import Notation from '../../components/notation/notation';
+import { useState } from 'react';
+
+const Header = styled.div`
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	border-top: 1px solid ${colors.dark};
+	border-bottom: 1px solid ${colors.dark};
+	padding: 20px;
+`;
 
 //TODO component
 const StyledLink = styled(Link)`
@@ -24,86 +29,43 @@ const StyledLink = styled(Link)`
 	}
 `;
 
-const DashboardContainer = styled.div`
-	display: flex;
+const Cells = styled.div`
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	padding: 20px;
+	row-gap: 20px;
+	grid-auto-rows: 1fr;
+`;
 
-	.sideNav {
-		height: auto;
-		min-height: calc(100vh - 100px);
-		background-color: ${colors.grey};
+const Cell = styled.div`
+	margin: 10px;
+	width: 20vw;
+	min-height: 30vh;
+	background-color: gainsboro;
+	display: grid;
+	grid-template-columns: 20% 80%;
+	align-items: center;
+	padding: 10px;
+	border-radius: 10px;
 
-		h2 {
-			padding-left: 10px;
-		}
-
-		div {
-			padding-top: 100px;
-			display: flex;
-			flex-direction: column;
-
-			button {
-				padding: 50px;
-				background-color: ${colors.grey};
-				color: ${colors.dark};
-				font-size: 16px;
-				border: none;
-
-				&:hover {
-					cursor: pointer;
-					text-decoration: underline;
-				}
-			}
-		}
+	* {
+		padding: 5px;
 	}
 
-	.tab {
-		/* padding: 20px; */
-		display: flex;
-		justify-content: space-around;
-		overflow: hidden;
-		background-color: #f1f1f1;
-		button {
-			border: none;
-			background-color: inherit;
-			float: left;
-			border: none;
-			outline: none;
-			cursor: pointer;
-			padding: 14px 16px;
-			transition: 0.3s;
-			font-size: 17px;
-
-			&:hover {
-				background-color: #ddd;
-			}
-		}
-		.active {
-			background-color: #ddd;
-		}
+	.label {
+		color: ${colors.grey_blue};
 	}
-	svg {
-		fill: ${colors.dark};
 
-		&:hover {
-			fill: ${colors.grey_blue};
-		}
+	&.filled {
+		background-color: white;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
 	}
 `;
 
-const Button = styled.button`
-	background-color: ${colors.green};
-	color: white;
-	padding: 12px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin: 20px auto;
-`;
-
-//TODO new general component?
 const Panel = styled.div`
 	padding: 0px !important;
 	display: none;
+
 	overflow: hidden;
 	transition: max-height 0.2s ease-out;
 
@@ -113,9 +75,10 @@ const Panel = styled.div`
 `;
 
 function Dashboard() {
+	const [value, setValue] = useState(0); // integer state
 	const { data, isLoading, error, setData } = useFetch(urlApiFeedbacks);
-	const [first, setFirst] = useState(true);
-	const [allData, setAllData] = useState([]);
+	const Status = { BACKLOG: 0, OPEN: 1, CLOSED: 2, REJECTED: 3 };
+
 	const {
 		register,
 		handleSubmit,
@@ -124,20 +87,6 @@ function Dashboard() {
 
 	if (error) {
 		return <div className='container error'>An error occurred</div>;
-	}
-
-	function filterTab(value) {
-		if (first) {
-			setAllData(data);
-			setFirst(false);
-		}
-		const tablinks = document.getElementsByClassName('tablinks');
-		for (let i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className.replace(' active', '');
-		}
-		document.getElementById(value).style.display = 'block';
-		document.getElementById(value).className += ' active';
-		setData(allData.filter((feedback) => feedback.status === value));
 	}
 
 	function handleAccordion() {
@@ -151,117 +100,145 @@ function Dashboard() {
 		}
 	}
 
-	async function onSubmit(data) {
-		console.log(data);
-		// const body = {
-		// 	...comment,
-		// 	userId,
-		// 	feedbackId,
-		// };
-		// setSubmit(true);
-		// setLoading(true);
-		// await post('', body);
-		// handleAccordion();
-		// if (response.ok) {
-		// 	const newData = [
-		// 		...data,
-		// 		{
-		// 			...comment,
-		// 			userId,
-		// 			feedbackId,
-		// 		},
-		// 	];
-		// 	setData(newData);
-		// }
-		// setLoading(false);
+	function allowDrop(ev) {
+		ev.preventDefault();
+	}
+
+	function drag(ev) {
+		ev.dataTransfer.setData('id', ev.target.id);
+	}
+
+	async function drop(ev, newStatus) {
+		ev.preventDefault();
+		const body = {
+			status: '',
+		};
+		const feedbackId = ev.dataTransfer.getData('id');
+		const elementToMove = document.getElementById(feedbackId);
+
+		if (elementToMove.compareDocumentPosition(ev.target) === Node.DOCUMENT_POSITION_PRECEDING) {
+			ev.target.parentNode.insertBefore(elementToMove, ev.target);
+		} else {
+			ev.target.parentNode.insertBefore(elementToMove, ev.target.nextSibling);
+		}
+
+		switch (newStatus) {
+			case Status.BACKLOG:
+				body.status = 'backlog';
+				break;
+			case Status.OPEN:
+				body.status = 'open';
+				break;
+			case Status.CLOSED:
+				body.status = 'closed';
+				break;
+			default:
+				body.status = 'rejected';
+				break;
+		}
+
+		const requestOptions = {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+		};
+		try {
+			const response = await fetch(urlApiFeedbacks + feedbackId, requestOptions);
+			const data = await response.json();
+			console.log(data);
+		} catch (err) {
+			//TODO
+			// setError({ message: err.message });
+			console.log(err);
+		} finally {
+			//TODO
+			// setLoading(false);
+		}
+	}
+
+	function dropFusion(ev, newStatus) {
+		//TODO
+		console.log('fusion');
+	}
+
+	function getFeedbacksSorted() {
+		const feedbacks = [
+			data.filter((feedback) => feedback.status === 'backlog'),
+			data.filter((feedback) => feedback.status === 'open'),
+			data.filter((feedback) => feedback.status === 'closed'),
+			data.filter((feedback) => feedback.status === 'rejected'),
+		];
+		const feedbacksLength = [
+			data.filter((feedback) => feedback.status === 'backlog').length,
+			data.filter((feedback) => feedback.status === 'open').length,
+			data.filter((feedback) => feedback.status === 'closed').length,
+			data.filter((feedback) => feedback.status === 'rejected').length,
+		];
+
+		const newFeedbacks = [];
+		const maxIndex = feedbacksLength.indexOf(Math.max(...feedbacksLength));
+
+		for (let index = 0; index < feedbacks[maxIndex].length; index++) {
+			const backlog = feedbacks[0][index] ? feedbacks[0][index] : undefined;
+			const open = feedbacks[1][index] ? feedbacks[1][index] : undefined;
+			const closed = feedbacks[2][index] ? feedbacks[2][index] : undefined;
+			const rejected = feedbacks[3][index] ? feedbacks[3][index] : undefined;
+
+			newFeedbacks.push(backlog);
+			newFeedbacks.push(open);
+			newFeedbacks.push(closed);
+			newFeedbacks.push(rejected);
+		}
+
+		return newFeedbacks;
 	}
 
 	return (
-		<DashboardContainer>
-			<div className='sideNav'>
-				<h2>Catégories</h2>
-				<div>
-					{/* TODO create list from backend */}
-					<button className='tabLinks'>Improvements</button>
-					<button className='tabLinks'>Positive</button>
-					<button className='tabLinks'>Negative</button>
-					<button className='tabLinks'>To test</button>
-					<button id='Accordion' className='tabLinks' onClick={handleAccordion}>
-						{/* TODO add to icons */}
-						<svg width='25px' height='25px' viewBox='0 0 24 24' className='test'>
-							<path d='M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2z'></path>
-						</svg>
-						<Panel id='Panel' data-testid='panel'>
-							<form onSubmit={handleSubmit(onSubmit)}>
-								{/* {errors.description && (
-								<p className='error' data-testid='error'>
-									This field is required
-								</p>
-							)} */}
-								<input data-testid='input' placeholder='Write something..' {...register('description', { required: true })} />
-								<input data-testid='submitButton' type='submit' value='Submit' />
-							</form>
-						</Panel>
-					</button>
-				</div>
-			</div>
-			<div className='container'>
-				<h1>Dashboard</h1>
-
-				<h2>This will completely change</h2>
-
-				<div className='tab'>
-					<button className='tablinks' id='all' onClick={() => filterTab('all')}>
-						All
-					</button>
-					<button className='tablinks' id='open' onClick={() => filterTab('open')}>
-						Open
-					</button>
-					<button className='tablinks' id='backlog' onClick={() => filterTab('backlog')}>
-						Backlog
-					</button>
-					<button className='tablinks' id='closed' onClick={() => filterTab('closed')}>
-						Closed
-					</button>
-					<button className='tablinks' id='rejected' onClick={() => filterTab('rejected')}>
-						Rejected
-					</button>
-				</div>
-
-				{/* {isLoading ? (
-					<LoaderWrapper>
-						<Loader data-testid='loader' />
-					</LoaderWrapper>
-				) : (
-					<CardWrapper>
-						<ul data-testid='content' className='responsive-table'>
-							<TableLine isHeader={true} data={['Notation', 'Note', 'Rating', 'User', 'Comments', 'Status', 'Category', 'Update']} />
-							{data?.map((feedback) => (
-								<TableLine
-									data-testid={feedback._id}
-									key={feedback._id}
-									isHeader={false}
-									data={[
-										<Notation feedbackId={feedback._id} />,
-										feedback.note,
-										feedback.rating,
-										feedback.userId,
-										<StyledLink to={`/feedbackWithComments/${feedback._id}`} state={{ ...feedback }}>
-											See all comments
-										</StyledLink>,
-										//TODO select box
-										feedback.status,
-										//TODO select box
-										feedback.category ? feedback.category : 'null',
-										<Button>Update</Button>,
-									]}
-								/>
-							))}
-						</ul>
-					</CardWrapper>
-				)} */}
-			</div>
-		</DashboardContainer>
+		<div className='container'>
+			<h1>Dashboard</h1>
+			<Header>
+				<span>Backlog</span>
+				<span>Open</span>
+				<span>Closed</span>
+				<span>Rejected</span>
+			</Header>
+			{isLoading ? (
+				<LoaderWrapper>
+					<Loader data-testid='loader' />
+				</LoaderWrapper>
+			) : (
+				<Cells>
+					{getFeedbacksSorted().map((feedback, index) =>
+						feedback ? (
+							<Cell
+								key={index}
+								id={feedback._id}
+								className='filled'
+								draggable='true'
+								onDragStart={(e) => drag(e, feedback)}
+								onDrop={(e) => dropFusion(e, index % 4)}
+								onDragOver={allowDrop}
+							>
+								<div className='label'>Notation</div>
+								<Notation feedbackId={feedback._id} />
+								<div className='label'>Note</div>
+								<div>{feedback.note}</div>
+								<div className='label'>Rating</div>
+								<div>{feedback.rating}</div>
+								<div className='label'>User</div>
+								<div>{feedback.userId}</div>
+								<div className='label'></div>
+								<StyledLink to={`/feedbackWithComments/${feedback._id}`} state={{ ...feedback }}>
+									See all comments
+								</StyledLink>
+							</Cell>
+						) : (
+							<Cell key={index} onDrop={(e) => drop(e, index % 4)} onDragOver={allowDrop}></Cell>
+						)
+					)}
+				</Cells>
+			)}
+		</div>
 	);
 }
 
